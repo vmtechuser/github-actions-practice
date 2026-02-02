@@ -1,11 +1,11 @@
 name: Issue Automation                                                                                          
                                                                                                                   
 on:                                                                                                             
-# Trigger when issues are opened or reopened                                                                  
+  # Trigger when issues are opened or reopened                                                                  
   issues:                                                                                                       
     types: [opened, reopened, labeled]                                                                          
                                                                                                                   
-    # Trigger when someone comments on an issue                                                                   
+      # Trigger when someone comments on an issue                                                                   
   issue_comment:                                                                                                
     types: [created]                                                                                            
                                                                                                                   
