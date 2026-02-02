@@ -1,25 +1,82 @@
-  name: Demo Workflow                                                           
-                                                                               
-  on:                                                                           
-    push:                                                                       
-      branches: [ main ]                                                        
-    pull_request:                                                               
-      branches: [ main ]                                                        
-    workflow_dispatch:                                                          
-                                                                                
-  jobs:                                                                         
-    hello-world:                                                                
-      runs-on: ubuntu-latest                                                    
-                                                                                
-      steps:                                                                    
-        - name: Checkout code                                                   
-          uses: actions/checkout@v4                                             
-                                                                                
-        - name: Say hello                                                       
-          run: echo "Hello, GitHub Actions!"                                    
-                                                                                
-        - name: Show environment                                                
-          run: |                                                                
-            echo "Running on: $RUNNER_OS"                                       
-            echo "Branch: $GITHUB_REF"                                          
-            echo "Triggered by: $GITHUB_EVENT_NAME" 
+name: Demo Workflow - Learning Triggers
+
+# Multiple trigger types - this is where GitHub Actions shines!
+on:
+  # Trigger 1: Push to feature branches
+  push:
+    branches:
+      - 'feature/**'    # Any branch starting with feature/
+      - 'main'
+    paths-ignore:
+      - '**.md'         # Don't run on markdown-only changes
+
+  # Trigger 2: Pull Requests (runs BEFORE merging - critical!)
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+  # Trigger 3: Manual trigger with inputs (like Jenkins parameters!)
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      debug:
+        description: 'Enable debug logging'
+        required: false
+        type: boolean
+        default: false
+
+  # Trigger 4: Scheduled runs (cron - like Jenkins scheduled builds)
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9 AM UTC
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show trigger information
+        run: |
+          echo "🎯 Workflow triggered by: ${{ github.event_name }}"
+          echo "📝 Branch: ${{ github.ref_name }}"
+          echo "💻 Commit: ${{ github.sha }}"
+          echo "👤 Actor: ${{ github.actor }}"
+          echo "🏢 Repository: ${{ github.repository }}"
+
+      - name: Show manual input (if triggered manually)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "🎛️  Manual trigger detected!"
+          echo "Environment selected: ${{ inputs.environment }}"
+          echo "Debug mode: ${{ inputs.debug }}"
+
+      - name: Show PR information (if triggered by PR)
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "🔀 Pull Request trigger detected!"
+          echo "PR #${{ github.event.pull_request.number }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR Author: ${{ github.event.pull_request.user.login }}"
+
+      - name: Run tests (simulated)
+        run: |
+          echo "🧪 Running tests..."
+          echo "✅ All tests passed!"
+
+      - name: Build summary
+        run: |
+          echo "### ✅ Workflow Complete! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
