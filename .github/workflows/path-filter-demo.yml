@@ -1,0 +1,44 @@
+  name: Path Filter Demo                                                                                          
+                                                                                                                  
+  on:                                                                                                             
+    push:                                                                                                         
+       branches: 
+        - main
+        - 'feature/**'
+                                                                                                           
+      # Run ONLY when these paths change                                                                          
+       paths:                                                                                                      
+        - '**.py'             # Any Python file                                                                   
+        - 'requirements.txt'  # Dependencies                                                                      
+        - 'setup.py'          # Package setup                                                                     
+        - '.github/workflows/**'                                                                                                                                                                                                                                                                     
+                                                                                                                  
+  jobs:                                                                                                           
+    test-path-filtering:                                                                                          
+      runs-on: ubuntu-latest                                                                                      
+                                                                                                                  
+      steps:                                                                                                      
+        - name: Checkout code                                                                                     
+          uses: actions/checkout@v4                                                                               
+          with:                                                                                                   
+            fetch-depth: 2                                                                                        
+                                                                                                                  
+        - name: Show changed files                                                                                
+          run: |                                                                                                  
+            echo "Files changed in this commit:"                                                                  
+            git diff --name-only HEAD^ HEAD                                                                       
+                                                                                                                  
+        # TODO: YOUR TURN - Check if Python files changed                                                         
+        - name: Check for Python changes                                                                          
+          run: |                                                                                                  
+            echo "Checking for Python files..."                                                                   
+            # TODO: Write command to check for .py files                                                          
+            git diff --name-only HEAD^ HEAD | grep ".py"                                                  
+                                                                                                                  
+        # TODO: YOUR TURN - Count changed files                                                                   
+        - name: Count changed files                                                                               
+          run: |                                                                                                  
+            echo "Counting changed files..."                                                                      
+            # TODO: Count the number of changed files                                                             
+            CHANGED_COUNT=$(git diff --name-only HEAD^ HEAD | wc -l)
+            echo "Total changed files: $CHANGED_COUNT"
