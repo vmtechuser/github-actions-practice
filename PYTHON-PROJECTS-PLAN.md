@@ -111,7 +111,48 @@ python-calculator-lib/
 
 ---
 
-## Project 2: Python + Docker + Kubernetes 🚀 UPCOMING
+## Project 1.5: Python Web Application 🌐 INTERMEDIATE
+
+### Goal
+Build a web-based Python application (Flask or FastAPI) with full CI/CD, bridging the gap between simple library testing and container orchestration.
+
+### Learning Objectives
+- ✅ Build RESTful API or web app
+- ✅ Test web endpoints
+- ✅ Integration testing
+- ✅ API documentation (FastAPI auto-docs or Swagger)
+- ✅ Environment variables and configuration
+- ✅ Database integration (SQLite/PostgreSQL)
+- ✅ GitHub Actions for web apps
+- ✅ Deploy to cloud platform (Heroku, Railway, or Render)
+
+### Project Ideas (Choose One)
+1. **Calculator Web API** - RESTful API for calculator operations
+2. **Task Manager API** - Simple TODO app with CRUD operations
+3. **URL Shortener** - Generate and track short URLs
+4. **Weather Dashboard** - Fetch and display weather data
+
+### Tech Stack Options
+- **Option A - Flask**: Traditional, simpler, great for learning
+- **Option B - FastAPI**: Modern, fast, auto-documentation, async support (Recommended)
+
+### Key Concepts to Learn
+- [ ] Web framework basics (routes, request/response)
+- [ ] API testing (pytest + requests)
+- [ ] Environment configuration
+- [ ] Database migrations
+- [ ] Deployment to cloud platforms
+- [ ] Health check endpoints
+- [ ] API documentation
+
+### Resources
+- Flask: https://flask.palletsprojects.com/
+- FastAPI: https://fastapi.tiangolo.com/
+- pytest with FastAPI: https://fastapi.tiangolo.com/tutorial/testing/
+
+---
+
+## Project 2: Python + Docker + Kubernetes 🚀 ADVANCED
 
 ### Goal
 Build a Python web application with Docker containerization and Kubernetes deployment, fully automated with GitHub Actions.
@@ -218,8 +259,10 @@ Build a Python web application with Docker containerization and Kubernetes deplo
 
 ### Current Status
 - [x] Document project plan
-- [ ] Start Project 1: Python Library
+- [ ] Start Project 1: Python Calculator Library
 - [ ] Complete Project 1
+- [ ] Start Project 1.5: Python Web Application
+- [ ] Complete Project 1.5
 - [ ] Start Project 2: Docker + K8s
 - [ ] Complete Project 2
 
@@ -231,6 +274,8 @@ Build a Python web application with Docker containerization and Kubernetes deplo
 - Learned about GitHub Actions triggers
 - Merged PR to main
 - Documented Python project roadmap
+- **Decision**: Start with calculator library, then build intermediate web app before Docker/K8s
+- **User Request**: Add intermediate Project 1.5 - Web-based Python app (Flask/FastAPI) between calculator library and Docker/K8s project for better progression
 
 **Next Session**: Create python-calculator-lib project
 
