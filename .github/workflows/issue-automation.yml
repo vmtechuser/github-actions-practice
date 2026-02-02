@@ -7,7 +7,12 @@ on:
                                                                                                                   
       # Trigger when someone comments on an issue                                                                   
   issue_comment:                                                                                                
-    types: [created]                                                                                            
+    types: [created]    
+
+  # TEMPORARY: For testing only - remove before PR                       
+  push:                                                                  
+    branches:                                                            
+      - feature/explore-triggers
                                                                                                                   
 permissions:                                                                                                    
   issues: write                                                                                                 
