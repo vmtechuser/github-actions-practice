@@ -1,0 +1,41 @@
+name: Issue Automation                                                                                          
+                                                                                                                  
+  on:                                                                                                             
+    # Trigger when issues are opened or reopened                                                                  
+    issues:                                                                                                       
+      types: [opened, reopened, labeled]                                                                          
+                                                                                                                  
+    # Trigger when someone comments on an issue                                                                   
+    issue_comment:                                                                                                
+      types: [created]                                                                                            
+                                                                                                                  
+    permissions:                                                                                                    
+    issues: write                                                                                                 
+    pull-requests: write                                                                                          
+                                                                                                                  
+    jobs:                                                                                                           
+    handle-issue:                                                                                                 
+      runs-on: ubuntu-latest                                                                                      
+                                                                                                                  
+      steps:                                                                                                      
+        - name: Show issue information                                                                            
+          run: |                                                                                                  
+            echo "🎯 Event: ${{ github.event_name }}"                                                             
+            echo "📝 Issue #${{ github.event.issue.number }}"                                                     
+            echo "🏷️  Title: ${{ github.event.issue.title }}"                                                     
+            echo "👤 Author: ${{ github.event.issue.user.login }}"                                                
+            echo "🔗 URL: ${{ github.event.issue.html_url }}"                                                     
+                                                                                                                  
+        # Only run if a new issue was opened                                                                      
+        - name: Welcome new issue                                                                                 
+          if: github.event.action == 'opened'                                                                     
+          run: |                                                                                                  
+            echo "🎉 New issue opened!"                                                                           
+            echo "Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"                       
+                                                                                                                  
+        # Only run when someone adds a comment                                                                    
+        - name: Handle new comment                                                                                
+          if: github.event_name == 'issue_comment'                                                                
+          run: |                                                                                                  
+            echo "💬 New comment on issue #${{ github.event.issue.number }}"                                      
+            echo "Comment by: ${{ github.event.comment.user.login }}"
