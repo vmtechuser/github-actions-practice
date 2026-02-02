@@ -5,15 +5,10 @@ on:
   issues:                                                                                                       
     types: [opened, reopened, labeled]                                                                          
                                                                                                                   
-      # Trigger when someone comments on an issue                                                                   
-  issue_comment:                                                                                                
-    types: [created]    
+      # Trigger when someone comments on an issue
+  issue_comment:
+    types: [created]
 
-  # TEMPORARY: For testing only - remove before PR                       
-  push:                                                                  
-    branches:                                                            
-      - feature/explore-triggers
-                                                                                                                  
 permissions:                                                                                                    
   issues: write                                                                                                 
   pull-requests: write                                                                                          
