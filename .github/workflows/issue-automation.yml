@@ -23,13 +23,14 @@ jobs:
     runs-on: ubuntu-latest                                                                                      
                                                                                                                   
     steps:                                                                                                      
-        - name: Show issue information                                                                            
-          run: |                                                                                                  
-            echo "🎯 Event: ${{ github.event_name }}"                                                             
-            echo "📝 Issue #${{ github.event.issue.number }}"                                                     
-            echo "🏷️  Title: ${{ github.event.issue.title }}"                                                     
-            echo "👤 Author: ${{ github.event.issue.user.login }}"                                                
-            echo "🔗 URL: ${{ github.event.issue.html_url }}"                                                     
+        - name: Show issue information
+          if: github.event.issue != null                                       
+          run: |                                                               
+            echo "🎯 Event: ${{ github.event_name }}"                          
+            echo "📝 Issue #${{ github.event.issue.number }}"                  
+            echo "🏷️  Title: ${{ github.event.issue.title }}"                  
+            echo "👤 Author: ${{ github.event.issue.user.login }}"             
+            echo "🔗 URL: ${{ github.event.issue.html_url }}"                                                                                                                              
                                                                                                                   
         # Only run if a new issue was opened                                                                      
         - name: Welcome new issue                                                                                 
